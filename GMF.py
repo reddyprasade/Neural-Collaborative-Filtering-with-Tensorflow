@@ -1,10 +1,10 @@
 import numpy as np
 
-from keras import initializers
-from keras.models import Model
-from keras.layers import Embedding, Input, Dense, Flatten
-from keras.optimizers import Adagrad, Adam, SGD, RMSprop
-from keras.regularizers import l2
+from tensorflow.keras import initializers
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Embedding, Input, Dense, Flatten
+from tensorflow.keras.optimizers import Adagrad, Adam, SGD, RMSprop
+from tensorflow.keras.regularizers import l2
 from Dataset import Dataset
 from evaluate import evaluate_model
 from time import time

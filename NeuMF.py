@@ -1,18 +1,12 @@
-'''
-Created on Aug 9, 2016
-Keras Implementation of Neural Matrix Factorization (NeuMF) recommender model in:
-He Xiangnan et al. Neural Collaborative Filtering. In WWW 2017.  
 
-@author: Xiangnan He (xiangnanhe@gmail.com)
-'''
 import numpy as np
 
 
-from keras import initializers
-from keras.regularizers import l2
-from keras.models import Model
-from keras.layers import Embedding, Input, Dense, merge, Flatten, concatenate, multiply
-from keras.optimizers import Adagrad, Adam, SGD, RMSprop
+from tensorflow.keras import initializers
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Embedding, Input, Dense, Flatten, concatenate, multiply
+from tensorflow.keras.optimizers import Adagrad, Adam, SGD, RMSprop
 from evaluate import evaluate_model
 from Dataset import Dataset
 from time import time
