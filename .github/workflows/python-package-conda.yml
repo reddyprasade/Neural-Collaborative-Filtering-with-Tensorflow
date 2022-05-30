@@ -1,34 +1,65 @@
-name: Python Package using Conda
+# Python package
 
-on: [push]
+# Create and test a Python package on multiple Python versions.
 
-jobs:
-  build-linux:
-    runs-on: ubuntu-latest,windows-latest
-    strategy:
-      max-parallel: 5
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.6
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.6
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
-      run: |
-        conda env update --file environment.yml --name base
-    - name: Lint with flake8
-      run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        conda install pytest
-        pytest
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+
+
+trigger:
+
+- main
+
+
+
+pool:
+
+  vmImage: ubuntu-latest
+
+strategy:
+
+  matrix:
+
+    Python36:
+
+      python.version: '3.6'
+
+
+
+steps:
+
+- task: UsePythonVersion@0
+
+  inputs:
+
+    versionSpec: '$(python.version)'
+
+  displayName: 'Use Python $(python.version)'
+
+
+
+- script: |
+
+    python -m pip install --upgrade pip
+
+    pip install boman-cli
+
+  displayName: 'Install boman-cli'
+
+
+
+- script: |
+
+    boman-cli -h
+
+  displayName: 'run help of boman-cli'
+
+
+
+- script: |
+
+    boman-cli -a run
+
+  displayName: 'run scan'
